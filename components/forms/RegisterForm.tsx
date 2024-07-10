@@ -17,6 +17,7 @@ import { RadioGroupItem } from '../ui/radio-group'
 import { Label } from '../ui/label'
 import { SelectItem } from '@/components/ui/select'
 import Image from 'next/image'
+import FileUploader from '../FileUploader'
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter()
@@ -249,23 +250,44 @@ const RegisterForm = ({ user }: { user: User }) => {
             <h2 className='sub-header'>Identification and Verification</h2>
           </div>
 
-          <CustomFormField
-            fieldType={FormFieldType.SELECT}
-            control={form.control}
-            name='identificationType'
-            label='Identification Type'
-            placeholder='Select an identification type'
-          >
-            {IdentificationTypes.map(type => (
-              <SelectItem key={type} value={type}>
-                <div className='flex cursor-pointer items-center gap-2'>
-                  <p>{type}</p>
-                </div>
-              </SelectItem>
-            ))}
-          </CustomFormField>
-        </section>
+          <div className='flex flex-col gap-6 xl:flex-row'>
+            <CustomFormField
+              fieldType={FormFieldType.SELECT}
+              control={form.control}
+              name='identificationType'
+              label='Identification Type'
+              placeholder='Select an identification type'
+            >
+              {IdentificationTypes.map(type => (
+                <SelectItem key={type} value={type}>
+                  <div className='flex cursor-pointer items-center gap-2'>
+                    <p>{type}</p>
+                  </div>
+                </SelectItem>
+              ))}
+            </CustomFormField>
 
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name='identificationNumber'
+              label='Identification number'
+              placeholder='ABC123456789 '
+            />
+          </div>
+
+          <CustomFormField
+            fieldType={FormFieldType.SKELETON}
+            control={form.control}
+            name='identificationDocument'
+            label='Scan copy of identyfication document'
+            renderSkeleton={field => (
+              <FormControl>
+                <FileUploader files={field.value} onChange={field.onChange} />
+              </FormControl>
+            )}
+          />
+        </section>
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
