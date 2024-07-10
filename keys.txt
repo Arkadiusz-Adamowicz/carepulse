@@ -12,4 +12,4 @@ NEXT_PUBLIC_ADMIN_PASSKEY=
 
 https://www.youtube.com/watch?v=lEflo_sc82g&ab_channel=JavaScriptMastery
 
-1:08
+2:00

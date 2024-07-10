@@ -5,10 +5,10 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div className='mx-h-screen flex h-screen'>
+    <div className='flex h-screen max-h-screen'>
       {/* TODO: OTP Verification */}
 
-      <section className='remove-scrollbar container my-auto'>
+      <section className='remove-scrollbar container'>
         <div className='sub-container max-w-[496px]'>
           <Image
             src='/assets/icons/logo-full.svg'
