@@ -9,4 +9,4 @@ NEXT_PUBLIC_BUCKET_ID=668cb263000a61da1bd8
 
 https://www.youtube.com/watch?v=lEflo_sc82g&ab_channel=JavaScriptMastery
 
-2:10
+3:00
