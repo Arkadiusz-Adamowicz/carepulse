@@ -27,7 +27,6 @@ import FileUploader from '../FileUploader'
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<z.infer<typeof PatientFormValidation>>({
     resolver: zodResolver(PatientFormValidation),
     defaultValues: {
@@ -37,10 +36,8 @@ const RegisterForm = ({ user }: { user: User }) => {
       phone: ''
     }
   })
-
   const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
     setIsLoading(true)
-
     let formData
     if (
       values.identificationDocument &&
@@ -49,12 +46,10 @@ const RegisterForm = ({ user }: { user: User }) => {
       const blobFile = new Blob([values.identificationDocument[0]], {
         type: values.identificationDocument[0].type
       })
-
       formData = new FormData()
       formData.append('blobFile', blobFile)
       formData.append('fileName', values.identificationDocument[0].name)
     }
-
     try {
       const patient = {
         userId: user.$id,
@@ -81,9 +76,7 @@ const RegisterForm = ({ user }: { user: User }) => {
           : undefined,
         privacyConsent: values.privacyConsent
       }
-
       const newPatient = await registerPatient(patient)
-
       if (newPatient) {
         router.push(`/patients/${user.$id}/new-appointment`)
         console.log(newPatient)
@@ -91,10 +84,8 @@ const RegisterForm = ({ user }: { user: User }) => {
     } catch (error) {
       console.log(error)
     }
-
     setIsLoading(false)
   }
-
   return (
     <Form {...form}>
       <form
@@ -105,12 +96,10 @@ const RegisterForm = ({ user }: { user: User }) => {
           <h1 className='header'>Welcome 👋</h1>
           <p className='text-dark-700'>Let us know more about yourself</p>
         </section>
-
         <section className='space-y-6'>
           <div className='mb-9 space-y-1'>
             <h2 className='sub-header'>Personal Information</h2>
           </div>
-
           <CustomFormField
             fieldType={FormFieldType.INPUT}
             control={form.control}
@@ -120,7 +109,6 @@ const RegisterForm = ({ user }: { user: User }) => {
             iconSrc='/assets/icons/user.svg'
             iconAlt='user'
           />
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -139,7 +127,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               placeholder='(555) 123 4567'
             />
           </div>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.DATE_PICKER}
@@ -172,7 +159,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               )}
             />
           </div>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -181,7 +167,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               label='Address'
               placeholder='14 street, New york, NY - 5101'
             />
-
             <CustomFormField
               fieldType={FormFieldType.INPUT}
               control={form.control}
@@ -190,7 +175,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               placeholder=' Software Engineer'
             />
           </div>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -199,7 +183,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               label='Emergency contact name'
               placeholder="Guardian's name"
             />
-
             <CustomFormField
               fieldType={FormFieldType.PHONE_INPUT}
               control={form.control}
@@ -209,12 +192,10 @@ const RegisterForm = ({ user }: { user: User }) => {
             />
           </div>
         </section>
-
         <section className='space-y-6'>
           <div className='mb-9 space-y-1'>
             <h2 className='sub-header'>Medical Information</h2>
           </div>
-
           <CustomFormField
             fieldType={FormFieldType.SELECT}
             control={form.control}
@@ -237,7 +218,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               </SelectItem>
             ))}
           </CustomFormField>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -246,7 +226,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               label='Insurance provider'
               placeholder='NFZ'
             />
-
             <CustomFormField
               fieldType={FormFieldType.INPUT}
               control={form.control}
@@ -255,7 +234,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               placeholder='ABC123456789 '
             />
           </div>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.TEXTAREA}
@@ -264,7 +242,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               label='Allergies (if any)'
               placeholder='Peanuts, Penicillin'
             />
-
             <CustomFormField
               fieldType={FormFieldType.TEXTAREA}
               control={form.control}
@@ -273,7 +250,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               placeholder='Ibuprofen, Paracetamol, Apap'
             />
           </div>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.TEXTAREA}
@@ -282,7 +258,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               label='Family medical history'
               placeholder='Father has Alzheimer'
             />
-
             <CustomFormField
               fieldType={FormFieldType.TEXTAREA}
               control={form.control}
@@ -292,12 +267,10 @@ const RegisterForm = ({ user }: { user: User }) => {
             />
           </div>
         </section>
-
         <section className='space-y-6'>
           <div className='mb-9 space-y-1'>
             <h2 className='sub-header'>Identification and Verification</h2>
           </div>
-
           <div className='flex flex-col gap-6 xl:flex-row'>
             <CustomFormField
               fieldType={FormFieldType.SELECT}
@@ -314,7 +287,6 @@ const RegisterForm = ({ user }: { user: User }) => {
                 </SelectItem>
               ))}
             </CustomFormField>
-
             <CustomFormField
               fieldType={FormFieldType.INPUT}
               control={form.control}
@@ -323,7 +295,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               placeholder='ABC123456789 '
             />
           </div>
-
           <CustomFormField
             fieldType={FormFieldType.SKELETON}
             control={form.control}
@@ -336,7 +307,6 @@ const RegisterForm = ({ user }: { user: User }) => {
             )}
           />
         </section>
-
         <section className='space-y-6'>
           <div className='mb-9 space-y-1'>
             <h2 className='sub-header'>Consent and Privacy</h2>
@@ -362,7 +332,6 @@ const RegisterForm = ({ user }: { user: User }) => {
             />
           </div>
         </section>
-
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>

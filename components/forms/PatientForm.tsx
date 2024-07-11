@@ -20,11 +20,9 @@ export enum FormFieldType {
   SELECT = 'select',
   SKELETON = 'skeleton'
 }
-
 const PatientForm = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -33,7 +31,6 @@ const PatientForm = () => {
       phone: ''
     }
   })
-
   const onSubmit = async ({
     name,
     email,
@@ -42,15 +39,12 @@ const PatientForm = () => {
     setIsLoading(true)
     try {
       const userData = { name, email, phone }
-
       const user = await createUser(userData)
-
       if (user) router.push(`/patients/${user.$id}/register`)
     } catch (error) {
       console.log(error)
     }
   }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
@@ -58,7 +52,6 @@ const PatientForm = () => {
           <h1 className='header'>Hi there 👋</h1>
           <p className='text-dark-700'>Schedule your first appointment</p>
         </section>
-
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}
@@ -84,7 +77,6 @@ const PatientForm = () => {
           label='Phone number'
           placeholder='(555) 123 4567'
         />
-
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>

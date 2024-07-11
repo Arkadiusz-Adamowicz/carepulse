@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
 import { SelectItem } from '@/components/ui/select'
 import { Doctors } from '@/constants'
 import {
@@ -15,9 +14,7 @@ import {
 } from '@/lib/actions/appointment.actions'
 import { getAppointmentSchema } from '@/lib/validation'
 import { Appointment } from '@/types/appwrite.types'
-
 import 'react-datepicker/dist/react-datepicker.css'
-
 import CustomFormField from '../CustomFormField'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
@@ -38,9 +35,7 @@ export const AppointmentForm = ({
 }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-
   const AppointmentFormValidation = getAppointmentSchema(type)
-
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
@@ -53,12 +48,10 @@ export const AppointmentForm = ({
       cancellationReason: appointment?.cancellationReason || ''
     }
   })
-
   const onSubmit = async (
     values: z.infer<typeof AppointmentFormValidation>
   ) => {
     setIsLoading(true)
-
     let status
     switch (type) {
       case 'schedule':
@@ -70,7 +63,6 @@ export const AppointmentForm = ({
       default:
         status = 'pending'
     }
-
     try {
       if (type === 'create' && patientId) {
         const appointment = {
@@ -102,9 +94,7 @@ export const AppointmentForm = ({
           },
           type
         }
-
         const updatedAppointment = await updateAppointment(appointmentToUpdate)
-
         if (updatedAppointment) {
           setOpen && setOpen(false)
           form.reset()
@@ -115,7 +105,6 @@ export const AppointmentForm = ({
     }
     setIsLoading(false)
   }
-
   let buttonLabel
   switch (type) {
     case 'cancel':
@@ -127,7 +116,6 @@ export const AppointmentForm = ({
     default:
       buttonLabel = 'Submit Apppointment'
   }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
@@ -139,7 +127,6 @@ export const AppointmentForm = ({
             </p>
           </section>
         )}
-
         {type !== 'cancel' && (
           <>
             <CustomFormField
@@ -164,7 +151,6 @@ export const AppointmentForm = ({
                 </SelectItem>
               ))}
             </CustomFormField>
-
             <CustomFormField
               fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
@@ -173,7 +159,6 @@ export const AppointmentForm = ({
               showTimeSelect
               dateFormat='MM/dd/yyyy  -  h:mm aa'
             />
-
             <div
               className={`flex flex-col gap-6 ${type === 'create' && 'xl:flex-row'}`}
             >
@@ -185,7 +170,6 @@ export const AppointmentForm = ({
                 placeholder='Annual montly check-up'
                 disabled={type === 'schedule'}
               />
-
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
@@ -197,7 +181,6 @@ export const AppointmentForm = ({
             </div>
           </>
         )}
-
         {type === 'cancel' && (
           <CustomFormField
             fieldType={FormFieldType.TEXTAREA}
@@ -207,7 +190,6 @@ export const AppointmentForm = ({
             placeholder='Urgent meeting came up'
           />
         )}
-
         <SubmitButton
           isLoading={isLoading}
           className={`${type === 'cancel' ? 'shad-danger-btn' : 'shad-primary-btn'} w-full`}
