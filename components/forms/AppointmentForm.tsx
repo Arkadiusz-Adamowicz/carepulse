@@ -31,7 +31,7 @@ export const AppointmentForm = ({
   patientId: string
   type: 'create' | 'schedule' | 'cancel'
   appointment?: Appointment
-  setOpen?: Dispatch<SetStateAction<boolean>>
+  setOpen: (open: boolean) => void
 }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
@@ -159,23 +159,21 @@ export const AppointmentForm = ({
               showTimeSelect
               dateFormat='MM/dd/yyyy  -  h:mm aa'
             />
-            <div
-              className={`flex flex-col gap-6 ${type === 'create' && 'xl:flex-row'}`}
-            >
+            <div className={'flex flex-col gap-6 xl:flex-row'}>
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
                 name='reason'
-                label='Appointment reason'
-                placeholder='Annual montly check-up'
+                label='Reason for appointment'
+                placeholder='Enter reason for appointment'
                 disabled={type === 'schedule'}
               />
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
                 name='note'
-                label='Comments/notes'
-                placeholder='Prefer afternoon appointments, if possible'
+                label='Notes'
+                placeholder='Enter notes'
                 disabled={type === 'schedule'}
               />
             </div>
@@ -187,7 +185,7 @@ export const AppointmentForm = ({
             control={form.control}
             name='cancellationReason'
             label='Reason for cancellation'
-            placeholder='Urgent meeting came up'
+            placeholder='Enter reason for cancellation'
           />
         )}
         <SubmitButton
