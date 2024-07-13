@@ -9,6 +9,8 @@ NEXT_PUBLIC_BUCKET_ID=668cb263000a61da1bd8
 NEXT_PUBLIC_ADMIN_PASSKEY=123456
 SENTRY_AUTH_TOKEN=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
 
+SENTRY_RECOVERY_CODE=1ASVP9ZEM2QVZ5BLW87XNHEN
+  
 https://www.youtube.com/watch?v=lEflo_sc82g&ab_channel=JavaScriptMastery
 
 5:07
